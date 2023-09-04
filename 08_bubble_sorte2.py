@@ -8,6 +8,9 @@ def bubble_sort(lista):
     trocando entre si dois elementos adjacentes sempe que o
     segundo for MENOR que o primeiro, até que, na última delas,
     nenhuma troca tenha sido realizada.
+
+    ESTA VERSÃO TEM UMA PEQUENA OTIMIZAÇÃO QUE VAI DIMINUINDO A
+    QUANTIDADE DE COMPARAÇÕES A CADA PASSADA
     """
     # Wusando as variáveis globaix
     global comps,trocas, passd
@@ -24,9 +27,9 @@ def bubble_sort(lista):
         trocou = False
 
         # Percurso da lista, do primeiro ao PENÚLTIMO elemento,
-        # com acesso a cada posição, pois se chegar na última posição
-        # ele não terá um posição para comparar.
-        for pos in range(len(lista) -1):
+        # com acesso a cada posição, NA PRIMEIRA PASSADA
+        # Nas demais passadas, o percurso vai diminuindo uma posição
+        for pos in range(len(lista) -passd):
             
             # Se o valor que está a frente na lista (pos + 1) for MENOR
             # do que aquele que está atrás (pos), faz uma TROCA
@@ -49,24 +52,24 @@ nums = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
     
 print("Antes: ", nums)
 bubble_sort(nums)
-print("DEPOIS: ", nums)
+print("DEPOIS: ", nums) 
 print(f"Comparações: {comps}, trocas: {trocas}, passadas: {passd}")
 
 #########################################################
 
-# TESTE COMO ARQUIVO DE 1 M+ NOMES
+#TESTE COMO ARQUIVO DE 1 M+ NOMES
 
-import sys
-sys.dont_write_bytecode = True # Impede a criação do cache
+# import sys
+# sys.dont_write_bytecode = True # Impede a criação do cache
 
-# Importando a lista de nomes
-from data.nomes_desord import nomes
-from time import time
+# # Importando a lista de nomes
+# from data.nomes_desord import nomes
+# from time import time
 
-nomes10000 = nomes[:10000]
+# nomes10000 = nomes[:10000]
 
-hora_ini = time()
-bubble_sort(nomes10000)
-hora_fim = time()
-print(nomes10000) # Lista após ordenação
-print(f"Tempo gato: {(hora_fim -hora_ini) * 1000} * ms\n")
+# hora_ini = time()
+# bubble_sort(nomes10000)
+# hora_fim = time()
+# print(nomes10000) # Lista após ordenação
+# print(f"Tempo gato: {(hora_fim -hora_ini) * 1000} * ms\n")
