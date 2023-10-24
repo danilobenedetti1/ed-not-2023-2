@@ -12,7 +12,7 @@ def bubble_sort(lista):
     ESTA VERSÃO TEM UMA PEQUENA OTIMIZAÇÃO QUE VAI DIMINUINDO A
     QUANTIDADE DE COMPARAÇÕES A CADA PASSADA
     """
-    # Wusando as variáveis globaix
+    # usando as variáveis globaix
     global comps,trocas, passd
     comps = trocas = passd = 0
 

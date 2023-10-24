@@ -11,8 +11,8 @@ def busca_binaria(lista, val):
         apenas uma sublista vazia, quando então se conclui
         que o valor de busca não existe na lista.  
     """
-    global comps # usa a variavel comps do escopo global
-    comps = 0 # como se trata de variavel global, ela pode estar suja (chegar com valor inical)
+    global comps        # Use a variável comps do escopo global
+    comps = 0
 
     ini = 0                 # Início da lista
     fim = len(lista) - 1    # Fim da lista
@@ -44,12 +44,23 @@ def busca_binaria(lista, val):
     # Se chegamos até este ponto, o valor de busca NÃO EXISTE na lista
     return -1
 
-####################################################################
-# Para a busca binaria, a lista precisa estar ordenanda
-nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+###############################################################
 
+# Para a busca binária, a lista PRECISA estar ordenada
+nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 47]
 
-print('-' * 40)
+print(nums)
+
+pos11 = busca_binaria(nums, 11)
+print(f"Valor 11 encontrado na posição {pos11}")
+
+pos41 = busca_binaria(nums, 41)
+print(f"Valor 41 encontrado na posição {pos41}")
+
+pos8 = busca_binaria(nums, 8)
+print(f"Valor 8 encontrado na posição {pos8}")
+
+print("-" * 40)
 
 # FAZENDO A BUSCA EM UM ARQUIVO COM 1M+ NOMES
 
@@ -86,4 +97,11 @@ hora_ini = time()
 pos4 = busca_binaria(nomes, 'GILCICLEIDE GARCIA')
 hora_fim = time()
 print(f"GILCICLEIDE GARCIA encontrada na posição {pos4}, comparações: {comps}")
+print(f"Tempo gasto: {(hora_fim - hora_ini) * 1000}ms\n")
+
+# Buscando o nome AADRIANA LIMA
+hora_ini = time()
+pos4 = busca_binaria(nomes, 'AADRIANA LIMA')
+hora_fim = time()
+print(f"AADRIANA LIMA encontrada na posição {pos4}, comparações: {comps}")
 print(f"Tempo gasto: {(hora_fim - hora_ini) * 1000}ms\n")
