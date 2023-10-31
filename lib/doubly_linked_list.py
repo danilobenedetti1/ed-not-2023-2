@@ -36,6 +36,35 @@ class DoublyLinkedList:
             Método que retorna a quantidade de nodos da lista
         """
         return self.__count
+
+    def __find_node(self, pos):
+        """
+            Método PRIVADO que encontra um nodo na posição especificada
+        """
+        # 1º caso: posição 0, retorna self.__head
+        if pos == 0: return self.__head
+
+        # 2º caso: posição final (self.get_count() - 1), retorna self.__tail
+        if pos == self.get_count() - 1: return self.__tail
+
+        # 3º caso: posição intermediária
+
+        # Se a posição estiver na primeira metade da lista, faz o percurso
+        # a partir de self.__head, seguindo o ponteiro next
+        if pos < self.get_count() // 2:
+            # Percorre a lista quantas vezes forem necessárias para
+            # encontrar o nodo
+            node = self.__head
+            for p in range(1, pos + 1): node = node.next
+            return node
+        
+        # Senão, a posição estando na segunda metade da lista, faz o
+        # percurso reverso a partir de self.__tail, seguindo o ponteiro prev
+        else:
+            node = self.__tail      # Começa pelo último nodo
+            for p in range(self.get_count() - 2, pos - 1, -1):
+                node = node.prev
+            return node
     
     def insert(self, pos, val):
         """
@@ -67,5 +96,43 @@ class DoublyLinkedList:
             self.__tail.next = new
             self.__tail = new
 
+        # 4º caso: inserção em posição intermediária
+        elif pos > 0:       # Descarta posições negativas
+            # Busca o nodo que atualmente ocupa a posição onde será
+            # feita a inserção
+            current = self.__find_node(pos)
+
+            # Determina o nodo anterior à posição de inserção
+            before = current.prev
+
+            # Efetua o encaixe do novo nodo na sequência
+            before.next = new
+            new.prev = before
+            new.next = current
+            current.prev = new
+
         # Incrementa a contagem de nodos da lista
-        self.__count += 1
+        if pos >= 0: self.__count += 1
+
+    def __str__(self):
+        """
+            Método que cria uma representação da lista duplamente
+            encadeada como string
+        """
+        if self.get_count() == 0: return "[*** LISTA VAZIA ***]\n\n"
+
+        repr = f"*** LISTANDO {self.get_count()} ITEM(NS) ***\n"
+        repr += f"head: {hex(id(self.__head))}, tail: {hex(id(self.__tail))}\n"
+        repr += ("=" * 80) + "\n"
+
+        node = self.__head
+        for pos in range(self.get_count()):
+            repr += f"NODO posição {pos}, endereço: {hex(id(node))}\n"
+            repr += f"Anterior: {hex(id(node.prev))}\n"
+            repr += f"DADO: {node.data}\n"
+            repr += f"Seguinte: {hex(id(node.next))}\n"
+            repr += ("-" * 80) + "\n"
+            node = node.next
+
+        repr += "\n\n"
+        return repr
